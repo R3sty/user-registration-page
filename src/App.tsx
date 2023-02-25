@@ -1,19 +1,18 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import HomePage from './pages/Home'
-import LoginPage from './pages/Login'
+import { BrowserRouter, Route, Routes } from "react-router-dom"
+import LoginPage from "./pages/Login"
+import HomeScreen from "./pages/Home"
 
-export interface ApplicationProps { }
+export interface AppProps { }
 
-const App: React.FC<ApplicationProps> = (props) => {
+const App: React.FC<AppProps> = (props) => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<HomePage/>} />
-        <Route path="/login" element={<LoginPage/>} />
-        <LoginPage />
+      <Route path="/user-registration-page/login" element={<LoginPage />} />
+        <Route path="/user-registration-page/home" element={<HomeScreen />} />
       </Routes>
     </BrowserRouter>
   )
-}
+};
 
-export default App
+export default App;

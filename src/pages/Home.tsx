@@ -1,7 +1,11 @@
-const HomePage = () => {
-  return (
-    <div>Home works</div>
-  )
-}
+interface HomeScreenProps {}
 
-export default HomePage;
+const HomeScreen: React.FC<HomeScreenProps> = (props) => {
+  return (
+    <div>
+      <p>Homescreen works</p>
+    </div>
+  );
+};
+
+export default HomeScreen;
