@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
 
 interface FormProps {
   onSubmit: (formData: { email: string, password: string }) => void;
   isLoginForm?: boolean;
+  isSignedIn?: boolean;
 }
 
 interface InputProps {
@@ -11,11 +12,11 @@ interface InputProps {
 }
 
 const FormContainer = styled.form`
-color: green
-display: flex;
-flex-direction: column;
-align-items: center;
-margin-top: 50px;
+  color: green;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
 `;
 
 const Title = styled.h1`
@@ -43,11 +44,14 @@ const ErrorMessage = styled.p`
   color: red;
 `;
 
-const Form: React.FC<FormProps> = ({ onSubmit, isLoginForm = true }) => {
+const Form: React.FC<FormProps> = ({ onSubmit, isLoginForm = true, isSignedIn = false }) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
+
+  const emailRef = useRef<HTMLInputElement>(null);
+  const passwordRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -59,6 +63,14 @@ const Form: React.FC<FormProps> = ({ onSubmit, isLoginForm = true }) => {
     }
   };
 
+  if (isSignedIn) {
+    return (
+      <FormContainer>
+        <Title>You are already signed in!</Title>
+      </FormContainer>
+    );
+  }
+
   return (
     <FormContainer onSubmit={handleSubmit}>
       <Title>{isLoginForm ? 'Login' : 'Sign up'}</Title>
@@ -67,6 +79,7 @@ const Form: React.FC<FormProps> = ({ onSubmit, isLoginForm = true }) => {
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        ref={emailRef}
         hasError={hasError}
       />
       <Input
@@ -74,10 +87,16 @@ const Form: React.FC<FormProps> = ({ onSubmit, isLoginForm = true }) => {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        ref={passwordRef}
         hasError={hasError}
       />
       {hasError && <ErrorMessage>{errorMessage}</ErrorMessage>}
       <Button type="submit">{isLoginForm ? 'Login' : 'Sign up'}</Button>
+      {!isLoginForm && (
+        <p>
+          Already have an account? <a href="/login">Log in</a>
+        </p>
+      )}
     </FormContainer>
   );
 };
