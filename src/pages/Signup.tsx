@@ -5,6 +5,7 @@ import {
 	signInWithEmailAndPassword,
 } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import styles from './Login.module.scss';
 
 export interface SignUpProps {}
 
@@ -47,21 +48,25 @@ const SignUp: React.FC<SignUpProps> = (props) => {
 	};
 
 	return (
-		<div>
-			<form>
+		<div className={styles.container}>
+			<form className={styles.form}>
 				<input
+					className={styles.input}
 					type="email"
 					placeholder="Email"
 					value={email}
 					onChange={(e) => setEmail(e.target.value)}
 				/>
 				<input
+					className={styles.input}
 					type="password"
 					placeholder="Password"
 					value={password}
 					onChange={(e) => setPassword(e.target.value)}
 				/>
-				<button onClick={signUpWithEmail}>Sign up</button>
+				<button className={styles.button} onClick={signUpWithEmail}>
+					Sign up
+				</button>
 			</form>
 		</div>
 	);
