@@ -49,6 +49,7 @@ const SignUp: React.FC<SignUpProps> = (props) => {
 
 	return (
 		<div className={styles.container}>
+			<h1 className={styles.title}>Hello Japan</h1>
 			<form className={styles.form}>
 				<input
 					className={styles.input}
